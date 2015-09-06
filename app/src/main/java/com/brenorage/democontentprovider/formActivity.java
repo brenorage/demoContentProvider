@@ -1,17 +1,36 @@
 package com.brenorage.democontentprovider;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
-public class formActivity extends AppCompatActivity {
+public class formActivity extends Activity {
+
+    public DataBaseHelper helper;
+    public EditText email;
+    public EditText name;
+    public EditText age;
+    public RadioGroup gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
-        loadDataBase();
+        helper = new DataBaseHelper(getBaseContext());
+
+        email = (EditText) findViewById(R.id.emailText);
+        name = (EditText) findViewById(R.id.nameText);
+        age = (EditText) findViewById(R.id.ageText);
+        gender = (RadioGroup) findViewById(R.id.genderRadio);
+
     }
 
     @Override
@@ -36,7 +55,39 @@ public class formActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void loadDataBase(){
-
+    public void showData(View view){
+        Intent intent = new Intent(this, showDataActivity.class);
+        startActivity(intent);
     }
+
+    public void submitData(View view) {
+        int maleGenderID = R.id.maleRadio;
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        try {
+            values.put("name", name.getText().toString());
+            values.put("email", email.getText().toString());
+            values.put("age", age.getText().toString());
+
+            int genderChecked = gender.getCheckedRadioButtonId();
+
+            if(genderChecked == maleGenderID){
+                values.put("gender", 1);
+            }
+            else {
+                values.put("gender", 2);
+            }
+
+            db.insert("client", null, values);
+
+            Toast.makeText(getApplicationContext(),"Dados gravados", Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e){
+            Toast.makeText(getApplicationContext(),"Erro ao gravar dados" + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
