@@ -3,4 +3,10 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="buttonSubmit">Enviar</string>
+    <string name="loading">Carregando</string>
+    <string name="buttonShow">Mostar outra tela</string>
+    <string name="maleRadioBt">Masculino</string>
+    <string name="femaleRadioBt">Feminino</string>
+    <string name="title_activity_show_data">showDataActivity</string>
 </resources>

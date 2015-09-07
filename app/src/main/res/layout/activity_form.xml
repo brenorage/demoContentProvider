@@ -11,30 +11,48 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Nome"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp"
+        android:id="@+id/nameText"/>
     <EditText
         android:layout_width="300dp"
         android:layout_marginBottom="20dp"
         android:layout_height="wrap_content"
-        android:hint="Email"/>
+        android:hint="Email"
+        android:id="@+id/emailText"
+        android:inputType="textEmailAddress"/>
     <EditText
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:hint="Idade"
         android:layout_marginBottom="20dp"
-        android:inputType="number"/>
+        android:inputType="number"
+        android:id="@+id/ageText"/>
     <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:id="@+id/genderRadio">
     <RadioButton
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-        android:text="Masculino"/>
+        android:text="@string/maleRadioBt"
+        android:id="@+id/maleRadio"/>
     <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Feminino"/>
+        android:text="@string/femaleRadioBt"
+        android:id="@+id/femaleRadio"/>
     </RadioGroup>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonSubmit"
+        android:onClick="submitData"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonShow"
+        android:onClick="showData"/>
 
 </LinearLayout>
