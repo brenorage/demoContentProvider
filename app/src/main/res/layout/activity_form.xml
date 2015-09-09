@@ -48,11 +48,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/buttonSubmit"
-        android:onClick="submitData"/>
+        android:id="@+id/submitData"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/buttonShow"
-        android:onClick="showData"/>
+        android:id="@+id/showData"/>
 
 </LinearLayout>

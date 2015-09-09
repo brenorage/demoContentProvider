@@ -12,17 +12,37 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.List;
 
-public class showDataActivity extends ListActivity {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class showDataActivity extends AppCompatActivity {
 
     public DataBaseHelper helper;
+
+    @Bind(R.id.showName)
+    TextView showName;
+
+    @Bind(R.id.showEmail)
+    TextView showEmail;
+
+    @Bind(R.id.showAge)
+    TextView showAge;
+
+    @Bind(R.id.showGender)
+    TextView showGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_show_data);
+        ButterKnife.bind(this);
 
         loadData();
     }
@@ -56,12 +76,23 @@ public class showDataActivity extends ListActivity {
 
         Cursor cursor = db.rawQuery("SELECT * FROM client", null);
         cursor.moveToFirst();
+        do {
+            String name = cursor.getString(cursor.getColumnIndex(helper.NAMETABLE));
+            String email = cursor.getString(cursor.getColumnIndex(helper.EMAILTABLE));
+            String age = cursor.getString(cursor.getColumnIndex(helper.AGETABLE));
+            String gender = cursor.getString(cursor.getColumnIndex(helper.GENDERTABLE));
+            if (gender == "1") {
+                showGender.setText("Masculino");
+            }
+            else {
+                showGender.setText("Feminino");
+            }
 
-        String[] from = { helper.NAMETABLE, helper.EMAILTABLE};
-        int[] to = {android.R.id.title, android.R.id.text1};
+            showName.setText(name);
+            showEmail.setText(email);
+            showAge.setText(age);
 
-        CursorAdapter adapter = new SimpleCursorAdapter(this, android.R.layout.simple_expandable_list_item_1, cursor, from, to);
+        } while (cursor.moveToNext());
 
-        setListAdapter(adapter);
     }
 }

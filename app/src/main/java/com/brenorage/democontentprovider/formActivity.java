@@ -12,13 +12,19 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class formActivity extends Activity {
 
     public DataBaseHelper helper;
-    public EditText email;
-    public EditText name;
-    public EditText age;
-    public RadioGroup gender;
+
+    @Bind(R.id.nameText) EditText name;
+    @Bind(R.id.emailText) EditText email;
+    @Bind(R.id.ageText) EditText age;
+    @Bind(R.id.genderRadio) RadioGroup gender;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +32,7 @@ public class formActivity extends Activity {
         setContentView(R.layout.activity_form);
         helper = new DataBaseHelper(getBaseContext());
 
-        email = (EditText) findViewById(R.id.emailText);
-        name = (EditText) findViewById(R.id.nameText);
-        age = (EditText) findViewById(R.id.ageText);
-        gender = (RadioGroup) findViewById(R.id.genderRadio);
-
+        ButterKnife.bind(this);
     }
 
     @Override
@@ -55,11 +57,13 @@ public class formActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @OnClick(R.id.showData)
     public void showData(View view){
         Intent intent = new Intent(this, showDataActivity.class);
         startActivity(intent);
     }
 
+    @OnClick(R.id.submitData)
     public void submitData(View view) {
         int maleGenderID = R.id.maleRadio;
 
